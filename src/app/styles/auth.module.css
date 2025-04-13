@@ -1,0 +1,35 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.form__submit {
+    padding: 0.5rem 1rem;
+    background-color: #236935;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form__field input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form__field input:focus {
+    border-color: #236935;
+    outline: none;
+}
+
+.form__field input.error {
+    border-color: red;
+}
