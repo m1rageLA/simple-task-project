@@ -1,15 +1,42 @@
 .page {
   display: grid;
-  grid-template-rows: 20px 1fr 20px;
+  grid-template-columns: 20px 1fr 20px;
   align-items: center;
-  justify-items: center;
-  min-height: 100svh;
+  justify-content: center;
+  background-color: #ededed;
+  height: 100vh;
 }
 
-.main {
+.login {
+  display: grid;
+  width: 700px;
+  height: 60%;
+  grid-template-columns: 1fr 0.8fr;
+  grid-column: 2;
+  margin: auto; 
+  border-radius: 10;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.079);
+  color: black;
+}
+
+.loginContent {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  /* grid-row-start: 2; */
+  border-radius: 10px 0 0 10px; /* left top, left bottom */
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 100%;
+  padding: 20px;
 }
 
+.loginSideImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 10px 10px 0; /* right top, right bottom */
+  background-color: rgba(82, 163, 112, 0.765);
+  width: 100%;
+  height: 100%;
+}
