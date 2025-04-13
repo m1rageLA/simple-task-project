@@ -5,7 +5,7 @@ import styles from "../styles/auth.module.css";
 
 type Props = {}
 
-export default function LoginForm({ }: Props) {
+export default function RegisterForm({ }: Props) {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -19,12 +19,12 @@ export default function LoginForm({ }: Props) {
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.form__header}>
-                <h3>Log in</h3>
-                <p>Don't have an account?<a href="#">&nbsp;Create now</a></p>
+                <h3>Sign up</h3>
+                <p>Already have an account?<a href="#">&nbsp;Log in</a></p>
             </div>
             <div className={styles.form__field}>
                 <label htmlFor="">Full name</label>
-                <input type="email" name="text" placeholder="Alex Smith" required/>
+                <input type="email" name="text" placeholder="Alex Smith" required />
             </div>
             <div className={styles.form__field}>
                 <label htmlFor="">Email</label>
@@ -32,9 +32,9 @@ export default function LoginForm({ }: Props) {
             </div>
             <div className={styles.form__field}>
                 <label htmlFor="">Password</label>
-                <input type="password" name="password" placeholder="*******" />
+                <input type="password" name="password" placeholder="*******" required/>
             </div>
-            <input type="submit" value="Log in" className={styles.form__submit} required/>
+            <input type="submit" value="Sign up" className={styles.form__submit} />
         </form>
     )
 }
