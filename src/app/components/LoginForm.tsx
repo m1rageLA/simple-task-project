@@ -18,12 +18,16 @@ export default function LoginForm({ }: Props) {
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.form__header}>            
+                <h3>Sign in</h3>
+                <p>Don't have an account?<a href="#">&nbsp;Create now</a></p>
+            </div>
             <div className={styles.form__field}>
-                <label htmlFor="">name</label>
+                <label htmlFor="">Name</label>
                 <input type="email" name="email" placeholder="example@gmail.com" />
             </div>
             <div className={styles.form__field}>
-                <label htmlFor="">password</label>
+                <label htmlFor="">Password</label>
                 <input type="password" name="password" placeholder="*******" />
             </div>
             <input type="submit" value="Sign in " className={styles.form__submit} />
