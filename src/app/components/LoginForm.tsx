@@ -33,10 +33,15 @@ export default function LoginForm({ }: Props) {
             } else {
                 userCredential = await signInWithEmailAndPassword(auth, email, password);
             }
+
+            const user = userCredential.user;
+            localStorage.setItem("displayName", user.displayName ?? "");
+
             router.push('/home');
         } catch (error: string | any) {
             setError(error.message);
         }
+
     };
 
 
@@ -61,7 +66,7 @@ export default function LoginForm({ }: Props) {
                 <label htmlFor="">Password</label>
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="*******" />
             </div>
-            <input type="submit" value={isNewUser ? 'Register' : "Log in"} className={styles.form__submit} required /><br />   
+            <input type="submit" value={isNewUser ? 'Register' : "Log in"} className={styles.form__submit} required /><br />
             {error && <p className={styles.error}>{error}</p>}
         </form>
     )
