@@ -44,7 +44,10 @@ export default function LoginForm({ }: Props) {
         <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.form__header}>
                 {isNewUser ? <h3>Register</h3> : <h3>Log in</h3>}
-                {error && <p className={styles.error}>{error}</p>}
+                <p onClick={() => setIsNewUser(!isNewUser)}>
+                    {isNewUser ? "Already have an account?" : "Don't have an account?"}
+                    <a href="#">&nbsp;{isNewUser ? "Log in" : "Create now"}</a>
+                </p>
             </div>
             <div className={styles.form__field}>
                 <label htmlFor="">Full name</label>
@@ -58,7 +61,8 @@ export default function LoginForm({ }: Props) {
                 <label htmlFor="">Password</label>
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="*******" />
             </div>
-            <input type="submit" value="Log in" className={styles.form__submit} required />
+            <input type="submit" value={isNewUser ? 'Register' : "Log in"} className={styles.form__submit} required /><br />   
+            {error && <p className={styles.error}>{error}</p>}
         </form>
     )
 }
