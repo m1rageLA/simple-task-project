@@ -6,7 +6,7 @@ import LoginForm from './LoginForm';
 import '@testing-library/jest-dom';
 import React, { act } from "react";
 import { beforeEach } from 'node:test';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 //mock Next.js router
 const pushMock = vi.fn();
@@ -55,24 +55,39 @@ describe('LoginForm component', () => {
     //===FireBase===//
     it("calls createUserWithEmailAndPassword", async () => {
         render(<LoginForm />);
-        
         await userEvent.click(screen.getByRole('link', { name: /Create now/i }));
         await screen.findByRole("heading", { name: /Register/i });
-
         await userEvent.type(screen.getByPlaceholderText(/Alex Smith/i), 'New User');
         await userEvent.type(screen.getByPlaceholderText(/example@gmail.com/i), 'newUser@gmail.com');
         await userEvent.type(screen.getByPlaceholderText(/\*+/), 'securepass');
-        
         await act(() => {
             fireEvent.submit(screen.getByRole('form'));
         });
-
         expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
             expect.anything(),
             'newUser@gmail.com',
             'securepass'
-          );
+        );
+        expect(updateProfile).toHaveBeenCalledWith(
+            expect.objectContaining({ uid: 'test-uid' }),
+            { displayName: 'New User' }
+        );
+        expect(pushMock).toHaveBeenCalledWith('/home');
+    });
 
+    it("calls signInWithEmailAndPassword", async () => {
+        render(<LoginForm />);
+        await userEvent.type(screen.getByPlaceholderText(/Alex Smith/i), 'New User');
+        await userEvent.type(screen.getByPlaceholderText(/example@gmail.com/i), 'newUser@gmail.com');
+        await userEvent.type(screen.getByPlaceholderText(/\*+/), 'securepass');
+        await act(() => {
+            fireEvent.submit(screen.getByRole('form'));
+        });
+        expect(signInWithEmailAndPassword).toHaveBeenCalledWith(
+            expect.anything(),
+            'newUser@gmail.com',
+            'securepass'
+        );
         expect(pushMock).toHaveBeenCalledWith('/home');
     });
 });
