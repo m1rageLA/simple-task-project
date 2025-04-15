@@ -41,7 +41,7 @@ export default function LoginForm({ }: Props) {
 
 
     return (
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form} role="form">
             <div className={styles.form__header}>
                 {isNewUser ? <h3>Register</h3> : <h3>Log in</h3>}
                 <p onClick={() => setIsNewUser(!isNewUser)}>

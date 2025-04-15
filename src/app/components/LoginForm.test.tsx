@@ -1,15 +1,18 @@
 import { describe, it, expect } from 'vitest';
 import { vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import LoginForm from './LoginForm';
 import '@testing-library/jest-dom';
-import React from "react";
+import React, { act } from "react";
+import { beforeEach } from 'node:test';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 //mock Next.js router
+const pushMock = vi.fn();
 vi.mock('next/navigation', () => ({
     useRouter: () => ({
-        push: vi.fn(),
+        push: pushMock,
     }),
 }));
 
@@ -18,12 +21,7 @@ vi.mock('firebase/auth', async () => {
 
     return {
         ...actual,
-        getAuth: vi.fn(() => ({
-            currentUser: {
-                uid: 'test-user',
-                email: 'test@example.com',
-            }
-        })),
+        getAuth: vi.fn(() => ({ currentUser: null })),
         createUserWithEmailAndPassword: vi.fn(() =>
             Promise.resolve({ user: { uid: 'test-uid', email: 'test@example.com' } })
         ),
@@ -36,16 +34,45 @@ vi.mock('firebase/auth', async () => {
 
 
 describe('LoginForm component', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
+    //===COMPONENTS===//
     it("rendres login", () => {
         render(<LoginForm />);
         expect(screen.getByRole("heading", { name: /Log in/i })).toBeInTheDocument();
     });
     it("renders register", async () => {
         render(<LoginForm />);
-        const registerLink = screen.getByText(/Don't have an account?/i);
+        const registerLink = screen.getByRole('link', { name: /Create now/i });
         expect(registerLink).toBeInTheDocument();
         await userEvent.click(registerLink);
         expect(await screen.findByRole("heading", { name: /Register/i })).toBeInTheDocument();
         expect(await screen.getByText(/Already have an account?/i)).toBeInTheDocument();
+    });
+
+    //===FireBase===//
+    it("calls createUserWithEmailAndPassword", async () => {
+        render(<LoginForm />);
+        
+        await userEvent.click(screen.getByRole('link', { name: /Create now/i }));
+        await screen.findByRole("heading", { name: /Register/i });
+
+        await userEvent.type(screen.getByPlaceholderText(/Alex Smith/i), 'New User');
+        await userEvent.type(screen.getByPlaceholderText(/example@gmail.com/i), 'newUser@gmail.com');
+        await userEvent.type(screen.getByPlaceholderText(/\*+/), 'securepass');
+        
+        await act(() => {
+            fireEvent.submit(screen.getByRole('form'));
+        });
+
+        expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
+            expect.anything(),
+            'newUser@gmail.com',
+            'securepass'
+          );
+
+        expect(pushMock).toHaveBeenCalledWith('/home');
     });
 });
