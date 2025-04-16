@@ -77,7 +77,6 @@ describe('LoginForm component', () => {
 
     it("calls signInWithEmailAndPassword", async () => {
         render(<LoginForm />);
-        await userEvent.type(screen.getByPlaceholderText(/Alex Smith/i), 'New User');
         await userEvent.type(screen.getByPlaceholderText(/example@gmail.com/i), 'newUser@gmail.com');
         await userEvent.type(screen.getByPlaceholderText(/\*+/), 'securepass');
         await act(() => {
