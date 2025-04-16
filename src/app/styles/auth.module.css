@@ -24,6 +24,7 @@
     color: black;
 }
 
+
 .login_content {
     display: flex;
     flex-direction: column;
@@ -115,4 +116,18 @@
     color: red;
     font-size: 0.8rem;
     margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+    .login {
+        grid-template-columns: 1fr;
+    }
+
+    .login_sideImage {
+        display: none;
+    }
+
+    .login_content {
+        border-radius: 10px;
+    }
 }
