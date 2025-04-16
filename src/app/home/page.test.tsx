@@ -11,4 +11,10 @@ describe('HomePage', () => {
         render(<HomePage />);
         expect(screen.getByRole("heading", { name: /Welcome/i })).toBeInTheDocument();
     });
+    it('renders welcome message for guest', () => {
+        localStorage.removeItem('displayName');
+        render(<HomePage />);
+        expect(screen.getByRole("heading", { name: /Welcome, Guest!/i })).toBeInTheDocument();
+        expect(screen.getByRole("link", { name: /Login/i })).toBeInTheDocument();
+    });
 });
