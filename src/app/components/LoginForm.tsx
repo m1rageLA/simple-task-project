@@ -20,8 +20,8 @@ export default function LoginForm({ }: Props) {
         e.preventDefault();
         setError('');
 
-        if (!fullName || !email || !password) {
-            setError('Please fill in all fields');
+        if (!email || !password || (isNewUser && !fullName)) {
+            setError('Please fill in all required fields');
             return;
         }
 
@@ -54,10 +54,20 @@ export default function LoginForm({ }: Props) {
                     <a className={styles.button}>&nbsp;{isNewUser ? "Log in" : "Create now"}</a>
                 </p>
             </div>
-            <div className={styles.form__field}>
-                <label htmlFor="">Full name</label>
-                <input type="text" name="full name" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Alex Smith" required />
-            </div>
+            {isNewUser && (
+                <div className={styles.form__field}>
+                    <label htmlFor="">Full name</label>
+                    <input
+                        type="text"
+                        name="full name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        placeholder="Alex Smith"
+                        required={isNewUser}
+                    />
+                </div>
+            )}
+
             <div className={styles.form__field}>
                 <label htmlFor="">Email</label>
                 <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="example@gmail.com" required />
