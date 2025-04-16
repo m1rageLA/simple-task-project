@@ -51,7 +51,7 @@ export default function LoginForm({ }: Props) {
                 {isNewUser ? <h3>Register</h3> : <h3>Log in</h3>}
                 <p onClick={() => setIsNewUser(!isNewUser)}>
                     {isNewUser ? "Already have an account?" : "Don't have an account?"}
-                    <a href="#">&nbsp;{isNewUser ? "Log in" : "Create now"}</a>
+                    <a className={styles.button}>&nbsp;{isNewUser ? "Log in" : "Create now"}</a>
                 </p>
             </div>
             <div className={styles.form__field}>

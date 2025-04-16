@@ -5,7 +5,11 @@
     justify-content: center;
     background-color: #ededed;
     height: 100vh;
-  }  
+}
+
+.button {
+    cursor: pointer;
+}
 
 .login {
     display: grid;

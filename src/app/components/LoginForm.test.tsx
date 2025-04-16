@@ -45,7 +45,7 @@ describe('LoginForm component', () => {
     });
     it("renders register", async () => {
         render(<LoginForm />);
-        const registerLink = screen.getByRole('link', { name: /Create now/i });
+        const registerLink = screen.getByText(/Create now/i);
         expect(registerLink).toBeInTheDocument();
         await userEvent.click(registerLink);
         expect(await screen.findByRole("heading", { name: /Register/i })).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe('LoginForm component', () => {
     //===FireBase===//
     it("calls createUserWithEmailAndPassword", async () => {
         render(<LoginForm />);
-        await userEvent.click(screen.getByRole('link', { name: /Create now/i }));
+        await userEvent.click(screen.getByText(/Create now/i));
         await screen.findByRole("heading", { name: /Register/i });
         await userEvent.type(screen.getByPlaceholderText(/Alex Smith/i), 'New User');
         await userEvent.type(screen.getByPlaceholderText(/example@gmail.com/i), 'newUser@gmail.com');
