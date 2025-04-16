@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "../styles/page.module.css";
-
+import React from 'react';
 type Props = {}
 
 // ✅ src/app/home/page.tsx
