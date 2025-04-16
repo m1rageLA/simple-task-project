@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
+import styles from "../styles/page.module.css";
 
 type Props = {}
 
@@ -13,8 +14,11 @@ export default function HomePage({ }: Props) {
     }, []);
 
     return (
-        <main>
-            <h1>Welcome <br />{displayName}</h1>
-        </main>
+        <div className={styles.page}>
+            <main>
+                <h1>Welcome <br />{displayName}</h1>
+            </main>
+        </div>
+
     );
 }

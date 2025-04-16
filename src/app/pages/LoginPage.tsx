@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "../styles/page.module.css";
+import styles from "../styles/auth.module.css";
 import LoginForm from '../components/LoginForm';
 
 type Props = {}
